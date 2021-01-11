@@ -1,0 +1,8 @@
+# ignore data
+data/
+
+# ignore model files
+model_save/
+
+# runs
+runs/
