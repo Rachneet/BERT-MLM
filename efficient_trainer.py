@@ -139,8 +139,8 @@ def create_train_test_split(path):
 if __name__ == "__main__":
     # create_train_test_split('data/europarl-v7.fr-en.en')
     # train()
-    # text = "A product [MASK] is the marketing copy that explains what a product is and why it’s worth purchasing."
-    text = "We look to the [MASK] also to ensure that there is matched funding for projects."
+    text = "A product [MASK] is the marketing copy that explains what a product is and why it’s worth purchasing."
+    # text = "We look to the [MASK] also to ensure that there is matched funding for projects."
     predict(text)
 
 

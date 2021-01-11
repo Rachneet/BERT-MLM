@@ -14,32 +14,33 @@ class EuropData(Dataset):
 
         self.max_length = max_length
         self.tokenizer = tokenizer
-        self.data = group_texts(data)
+        # self.data = group_texts(data)
+        self.data = data
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, item):
 
-        encoded = tokenizer(self.data[item])
-        print(len(encoded['input_ids']))
+        # encoded = tokenizer(self.data[item])
+        # print(len(encoded['input_ids']))
         # Encode the sentence
-        # encoded = self.tokenizer.encode_plus(
-        #     text=self.data[item],  # the sentence to be encoded
-        #     add_special_tokens=True,  # Add [CLS] and [SEP]
-        #     max_length=self.max_length,  # maximum length of a sentence
-        #     padding='max_length',  # Add [PAD]s
-        #     return_attention_mask=True,  # Generate the attention mask
-        #     return_tensors='pt',  # ask the function to return PyTorch tensors
-        #     truncation=True,
-        #     return_special_tokens_mask=True
-        # )
+        encoded = self.tokenizer.encode_plus(
+            text=self.data[item],  # the sentence to be encoded
+            add_special_tokens=True,  # Add [CLS] and [SEP]
+            max_length=self.max_length,  # maximum length of a sentence
+            padding='max_length',  # Add [PAD]s
+            return_attention_mask=True,  # Generate the attention mask
+            return_tensors='pt',  # ask the function to return PyTorch tensors
+            truncation=True,
+            return_special_tokens_mask=True
+        )
         # print(encoded['input_ids'].size())
 
-        # inputs, labels = mask_tokens(encoded['input_ids'], tokenizer=self.tokenizer)
+        inputs, labels = mask_tokens(encoded['input_ids'], tokenizer=self.tokenizer)
         # print(inputs, labels)
 
-        # return inputs, labels, encoded['attention_mask']
+        return inputs, labels, encoded['attention_mask']
 
 
 def get_masked_input_and_labels(text, tokenizer):
@@ -81,6 +82,7 @@ def create_train_test_val(path):
     return train, validate, test
 
 
+# test your functions
 if __name__ == "__main__":
     # create_train_test_val('data/europarl-v7.fr-en.en')
 
